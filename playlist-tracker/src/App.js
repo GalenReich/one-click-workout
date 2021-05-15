@@ -22,36 +22,11 @@ const theme = createMuiTheme({
   },
 });
 
-function App() {
-
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Progress</Link>
-            </li>
-            <li>
-              <Link to="/video">Video</Link>
-            </li>
-            <li>
-              <Link to="/summary">Summary</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Switch>
-          <Route path="/summary" component={() => <SummaryView />} />
-          <Route path="/video" component={() => <VideoView />} />
-          <Route path="/" component={() => <ProgressView />} />
-        </Switch>
-      </div>
-    </Router >
-  );
-}
-
 function ProgressView() {
+  const timeout = 10000 //10 seconds
+  setTimeout(() => {
+    window.location.href = "/video";
+  }, timeout);
   return (
     <ThemeProvider theme={theme}>
       <title>Progress</title>
@@ -85,6 +60,35 @@ function SummaryView() {
       <title>Summary</title>
       <h1>Well done!</h1>
     </ThemeProvider>
+  );
+}
+
+function App() {
+
+  return (
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Progress</Link>
+            </li>
+            <li>
+              <Link to="/video">Video</Link>
+            </li>
+            <li>
+              <Link to="/summary">Summary</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Switch>
+          <Route path="/summary" component={() => <SummaryView />} />
+          <Route path="/video" component={() => <VideoView />} />
+          <Route path="/" component={() => <ProgressView />} />
+        </Switch>
+      </div>
+    </Router >
   );
 }
 
