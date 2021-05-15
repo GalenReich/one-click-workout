@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 
 import React, { useState } from 'react';
@@ -9,6 +8,7 @@ import {
   Link
 } from "react-router-dom";
 import { LinearProgress, createMuiTheme, ThemeProvider } from '@material-ui/core';
+import YoutubeEmbed from "./YoutubeEmbed";
 
 var progress = 5;
 
@@ -70,7 +70,11 @@ function VideoView() {
       <title>Video</title>
       <div className="Progress">
         <LinearProgress variant="determinate" value={progress} />
-    </div>
+      </div>
+      <div className="Youtube">
+        <YoutubeEmbed embedId="JRvLn-A_2dM" playlistId="PLN99XDk2SYr63TcAMIkiBl3hnfa8GXR4l" />
+        {/* <YoutubeEmbed embedId="PLN99XDk2SYr63TcAMIkiBl3hnfa8GXR4l" /> */}
+      </div>
     </ThemeProvider>
   );
 }
