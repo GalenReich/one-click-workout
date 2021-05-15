@@ -3,44 +3,53 @@ import PropTypes from "prop-types";
 import YouTube from "react-youtube";
 
 
-const YoutubeEmbed = ({ embedId, playlistId }) => {
+class YoutubeEmbed extends React.Component {
 
-    const opts = {
-        playerVars: {
-            // https://developers.google.com/youtube/player_parameters
-            autoplay: 1,
-            controls: 1,
-            enablejsapi: 1,
-            fs: 0
+    constructor({ embedId, playlistId }) {
+        super();
+        this.state = {
+            embedId: embedId
         }
-    };
+        this.playlistId = playlistId;
 
-    const loadNewVideo = () => {
-        embedId = "_OOaStQopUE";
+        this.playerOpts = {
+            playerVars: {
+                // https://developers.google.com/youtube/player_parameters
+                autoplay: 1,
+                controls: 1,
+                enablejsapi: 1,
+                fs: 0
+            }
+        }
+
     }
 
-    const checkElapsedTime = (e) => {
+    checkElapsedTime(e) {
         console.log(e.target.playerInfo.playerState);
         const duration = e.target.getDuration();
         const currentTime = e.target.getCurrentTime();
         if (currentTime / duration > 0.95) {
             console.log(currentTime / duration);
-            loadNewVideo();
+            this.changeVideo("2uXS20iWve4")
         }
     };
 
-    return (
-        <div className="video-responsive">
-            <YouTube
-                videoId={embedId}
-                // list={playlistId}
-                // listType="playlist"
-                containerClassName="embed embed-youtube"
-                onStateChange={(e) => checkElapsedTime(e)}
-                opts={opts}
-            />
-        </div >
-    );
+    changeVideo(embedId) {
+        this.setState({ embedId: embedId });
+    }
+
+    render() {
+        return (
+            <div className="video-responsive" >
+                <YouTube
+                    videoId={this.state.embedId}
+                    containerClassName="embed embed-youtube"
+                    onStateChange={(e) => this.checkElapsedTime(e)}
+                    opts={this.playerOpts}
+                />
+            </div >
+        );
+    };
 }
 
 YoutubeEmbed.propTypes = {
