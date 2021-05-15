@@ -12,11 +12,18 @@ import YoutubeEmbed from "./YoutubeEmbed";
 
 var progress = 5;
 
+const style = getComputedStyle(document.body)
 const theme = createMuiTheme({
   overrides: {
     MuiLinearProgress: {
       root: {
         height: '5vh',
+      },
+      colorPrimary: {
+        "background-color": style.getPropertyValue('--progress-back'),
+      },
+      barColorPrimary: {
+        "background-color": style.getPropertyValue('--progress-main'),
       },
     },
   },

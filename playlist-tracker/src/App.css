@@ -1,3 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100:300');
+ 
+:root {
+  --bkg-blue: #21D4FD;
+  --bkg-pink: #B721FF;
+  --progress-main: #FFA62B;
+  --progress-back: #0000004f;
+  --txt-main: #ffffff;
+  --txt-shadow: #1010107f;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+  font-weight: 300;
+  text-align: center;
+  height: 100vh;
+  background-color: var(--bkg-blue);
+  background-image: linear-gradient(25deg, var(--bkg-blue) 0%, var(--bkg-pink) 100%);
+  margin:0;
+}
+
+h1 {
+  font-weight: 100;
+  font-size: 10vw;
+  margin:0;
+  padding:5vw;
+  color: var(--txt-main);
+  text-shadow: 0 0 1vw var(--txt-shadow);
+  background-color: None;
+}
+
 .App {
   text-align: center;
 }
@@ -21,4 +52,3 @@
   width: 100%;
   position: absolute;
 }
-
