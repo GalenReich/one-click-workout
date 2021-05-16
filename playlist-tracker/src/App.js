@@ -10,8 +10,6 @@ import {
 import { LinearProgress, createMuiTheme, ThemeProvider } from '@material-ui/core';
 import YoutubeEmbed from "./YoutubeEmbed";
 
-var progress = 5;
-
 const style = getComputedStyle(document.body)
 const theme = createMuiTheme({
   overrides: {
@@ -29,7 +27,7 @@ const theme = createMuiTheme({
   },
 });
 
-function ProgressView() {
+function ProgressView(props) {
   const timeout = 10000 //10 seconds
   setTimeout(() => {
     window.location.href = "/video";
@@ -39,23 +37,22 @@ function ProgressView() {
       <title>Progress</title>
       <h1>Progress Screen</h1>
       <div className="Progress">
-        <LinearProgress variant="determinate" value={progress} />
+        <LinearProgress variant="determinate" value={props.progress} />
       </div>
     </ThemeProvider>
   );
 
 }
 
-function VideoView() {
+function VideoView(props) {
   return (
     <ThemeProvider theme={theme}>
       <title>Video</title>
       <div className="Progress">
-        <LinearProgress variant="determinate" value={progress} />
+        <LinearProgress variant="determinate" value={props.progress} />
       </div>
       <div className="Youtube">
-        <YoutubeEmbed embedId="JRvLn-A_2dM" playlistId="PLN99XDk2SYr63TcAMIkiBl3hnfa8GXR4l" />
-        {/* <YoutubeEmbed embedId="PLN99XDk2SYr63TcAMIkiBl3hnfa8GXR4l" /> */}
+        <YoutubeEmbed embedId="JRvLn-A_2dM" />
       </div>
     </ThemeProvider>
   );
@@ -72,28 +69,22 @@ function SummaryView() {
 
 function App() {
 
+  const [progress, setProgress] = useState(5.0);
+
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Progress</Link>
-            </li>
-            <li>
-              <Link to="/video">Video</Link>
-            </li>
-            <li>
-              <Link to="/summary">Summary</Link>
-            </li>
-          </ul>
-        </nav>
-
         <Switch>
           <Route path="/summary" component={() => <SummaryView />} />
-          <Route path="/video" component={() => <VideoView />} />
-          <Route path="/" component={() => <ProgressView />} />
+          <Route path="/video" component={() => <VideoView progress={progress} />} />
+          <Route path="/" component={() => <ProgressView progress={progress} />} />
         </Switch>
+
+        <nav>
+              <Link to="/">Progress</Link>
+              <Link to="/video">Video</Link>
+              <Link to="/summary">Summary</Link>
+        </nav>
       </div>
     </Router >
   );
