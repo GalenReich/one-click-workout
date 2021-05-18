@@ -9,6 +9,21 @@ import {
 } from "react-router-dom";
 import { LinearProgress, createMuiTheme, ThemeProvider } from '@material-ui/core';
 import YoutubeEmbed from "./YoutubeEmbed";
+import ls from 'local-storage'
+
+import courseData from "./data.json";
+
+var data;
+try {
+  data = ls.get('coursedata');
+}
+catch (e) {
+  console.log('No started course found, loading new course');
+  data = courseData;
+}
+
+const sessionIdx = data.findIndex(function (el) { return el.watched == false });
+console.log("Session idx: ", sessionIdx);
 
 const style = getComputedStyle(document.body)
 const theme = createMuiTheme({
@@ -71,19 +86,19 @@ function SummaryView() {
 }
 
 function doNextThing(setEmbedId, videoIdx, setVideoIdx, videoFinished, setVideoFinished) {
-
-  const videoObj = {
-    1: "jhsf1a4XG-U",
-    2: "ypDwh2ShJ6A"
-  }
+  console.log(data);
 
   if (videoFinished === true) {
     videoIdx = videoIdx + 1;
-    if (videoIdx in videoObj) {
+    if (videoIdx < data[sessionIdx].videos.id.length) {
       setVideoIdx(videoIdx);
-      setEmbedId(videoObj[videoIdx]);
+      setEmbedId(data[sessionIdx].videos.id[videoIdx]);
+      data[sessionIdx].videos.watched[videoIdx] = true;
       setVideoFinished(false);
+      ls.set('coursedata', data)
     } else {
+      data[sessionIdx].watched = true;
+      ls.set('coursedata', data)
       window.location.href = "/summary";
     }
 
@@ -93,9 +108,9 @@ function doNextThing(setEmbedId, videoIdx, setVideoIdx, videoFinished, setVideoF
 function App() {
 
   const [progress, setProgress] = useState(5.0);
-  const [embedId, setEmbedId] = useState("JRvLn-A_2dM");
+  const [embedId, setEmbedId] = useState("");
   const [videoFinished, setVideoFinished] = useState(true);
-  const [videoIdx, setVideoIdx] = useState(0);
+  const [videoIdx, setVideoIdx] = useState(-1);
 
   useEffect(() => {
     doNextThing(setEmbedId, videoIdx, setVideoIdx, videoFinished, setVideoFinished);
