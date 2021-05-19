@@ -57,7 +57,7 @@ const ImageList = (props) => {
 };
 
 function ProgressView(props) {
-  const timeout = 3000 //3 seconds
+  const timeout = 10000 //10 seconds
   setTimeout(() => {
     console.log(window.location)
     if (window.location.pathname == "/") {
