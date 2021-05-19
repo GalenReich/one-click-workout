@@ -11,7 +11,7 @@ function YoutubeEmbed(props) {
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
             autoplay: 1,
-            controls: 1,
+            controls: 0,
             enablejsapi: 1,
             fs: 0
         }
