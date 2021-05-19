@@ -47,6 +47,15 @@ const theme = createMuiTheme({
   },
 });
 
+const ImageList = (props) => {
+  const urls = data[sessionIdx].videos.thumbnails
+  const images = urls.map((url) => {
+    return <img key={url} src={url} alt={url} />;
+  });
+
+  return <div className="image-list">{images}</div>;
+};
+
 function ProgressView(props) {
   const timeout = 3000 //3 seconds
   setTimeout(() => {
@@ -56,10 +65,12 @@ function ProgressView(props) {
     }
   }, timeout);
   const sessionName = data[sessionIdx].name;
+  const thumbnails = data[sessionIdx].videos.thumbnails;
   return (
     <ThemeProvider theme={theme}>
       <title>Progress</title>
       <h1>{sessionName}</h1>
+      <ImageList />
     </ThemeProvider >
   );
 

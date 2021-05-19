@@ -52,3 +52,21 @@ h1 {
   width: 100%;
   position: absolute;
 }
+
+.image-list {
+  display: grid;
+  text-align: center;
+  grid-template-columns:  repeat(auto-fit, minmax(9%, 1fr));
+  grid-gap: 1vw;
+  margin:auto;
+  margin-left: 3vw;
+  margin-right: 3vw;
+  padding-top:5vw;
+  padding-bottom:5vw;
+}
+
+.image-list img {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
