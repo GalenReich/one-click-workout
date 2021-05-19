@@ -140,12 +140,6 @@ function App() {
           <Route path="/video" component={() => <VideoView progress={progress} embedId={embedId} setVideoFinished={setVideoFinished} />} />
           <Route path="/" component={() => <ProgressView progress={progress} />} />
         </Switch>
-
-        <nav>
-          <Link to="/">Progress</Link>
-          <Link to="/video">Video</Link>
-          <Link to="/summary">Summary</Link>
-        </nav>
       </div>
     </Router >
   );
