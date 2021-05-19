@@ -22,6 +22,11 @@ catch (e) {
   data = courseData;
 }
 
+if (data == null) {
+  data = courseData;
+  console.log('No started course found, loading new course');
+}
+
 const sessionIdx = data.findIndex(function (el) { return el.watched == false });
 console.log("Session idx: ", sessionIdx);
 
@@ -50,14 +55,12 @@ function ProgressView(props) {
       window.location.href = "/video";
     }
   }, timeout);
+  const sessionName = data[sessionIdx].name;
   return (
     <ThemeProvider theme={theme}>
       <title>Progress</title>
-      <h1>Progress Screen</h1>
-      <div className="Progress">
-        <LinearProgress variant="determinate" value={props.progress} />
-      </div>
-    </ThemeProvider>
+      <h1>{sessionName}</h1>
+    </ThemeProvider >
   );
 
 }
@@ -89,11 +92,13 @@ function doNextThing(setEmbedId, videoIdx, setVideoIdx, videoFinished, setVideoF
   console.log(data);
 
   if (videoFinished === true) {
+    if (videoIdx >= 0) {
+      data[sessionIdx].videos.watched[videoIdx] = true;
+    }
     videoIdx = videoIdx + 1;
     if (videoIdx < data[sessionIdx].videos.id.length) {
       setVideoIdx(videoIdx);
       setEmbedId(data[sessionIdx].videos.id[videoIdx]);
-      data[sessionIdx].videos.watched[videoIdx] = true;
       setVideoFinished(false);
       ls.set('coursedata', data)
     } else {
