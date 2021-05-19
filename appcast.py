@@ -36,7 +36,4 @@ d.load_url(URL)
 
 time.sleep(2)
 
-d.load_url(
-    "http://192.168.1.6:3000/? ",
-    callback_function=lambda result: d.load_url(URL),
-)
+d.load_url(URL,callback_function=lambda result: d.load_url(URL))
