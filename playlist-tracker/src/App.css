@@ -29,6 +29,16 @@ h1 {
   background-color: None;
 }
 
+h2 {
+  font-weight: 100;
+  font-size: 5vw;
+  margin:0;
+  padding:5vw;
+  color: var(--txt-main);
+  text-shadow: 0 0 1vw var(--txt-shadow);
+  background-color: None;
+}
+
 .App {
   text-align: center;
 }
@@ -69,4 +79,18 @@ h1 {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.achievement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #00000050;
+  padding: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.image {
+  flex-basis: 18%; 
 }

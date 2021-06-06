@@ -56,6 +56,43 @@ const ImageList = (props) => {
   return <div className="image-list">{images}</div>;
 };
 
+Date.prototype.getDateWithoutTime = function () {
+  return new Date(this.toDateString());
+}
+
+function countStreak() {
+  let day = new Date(data[sessionIdx - 1].watched).getDateWithoutTime();
+  let streak = 0;
+  for (let idx = sessionIdx - 1; idx >= 0; idx--) {
+    let dayPrev = new Date(data[idx].watched).getDateWithoutTime();
+    console.log(idx, data[idx].watched, dayPrev);
+    if (day - dayPrev == 86400000 || day - dayPrev == 0) {
+      streak++;
+      day = dayPrev;
+    }
+    else {
+      break;
+    }
+  }
+  return streak;
+}
+
+const Achievements = (props) => {
+
+  const days = countStreak();
+
+  return (
+    <div class="achievement">
+      <div class="image">
+        <img src="/diamond.svg"></img>
+      </div>
+      <div class="text">
+        <h2>{days} Day Streak!</h2>
+      </div>
+    </div>
+  )
+}
+
 function ProgressView(props) {
   const timeout = 10000 //10 seconds
   setTimeout(() => {
@@ -95,16 +132,20 @@ function SummaryView() {
     <ThemeProvider theme={theme}>
       <title>Summary</title>
       <h1>Well done!</h1>
+      <Achievements />
     </ThemeProvider>
   );
 }
 
 function doNextThing(setEmbedId, videoIdx, setVideoIdx, videoFinished, setVideoFinished) {
   console.log(data);
-
+  console.log(window.location.pathname)
+  if (window.location.pathname == "/summary") {
+    return
+  }
   if (videoFinished === true) {
     if (videoIdx >= 0) {
-      data[sessionIdx].videos.watched[videoIdx] = true;
+      data[sessionIdx].videos.watched[videoIdx] = Date.now();
     }
     videoIdx = videoIdx + 1;
     if (videoIdx < data[sessionIdx].videos.id.length) {
@@ -113,7 +154,7 @@ function doNextThing(setEmbedId, videoIdx, setVideoIdx, videoFinished, setVideoF
       setVideoFinished(false);
       ls.set('coursedata', data)
     } else {
-      data[sessionIdx].watched = true;
+      data[sessionIdx].watched = Date.now();
       ls.set('coursedata', data)
       window.location.href = "/summary";
     }
