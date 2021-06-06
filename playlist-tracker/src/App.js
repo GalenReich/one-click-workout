@@ -113,6 +113,24 @@ function ProgressView(props) {
 
 }
 
+function ClearCacheView(props) {
+  const timeout = 2000 //2 seconds
+  setTimeout(() => {
+    window.location.href = "/";
+  }, timeout);
+
+  console.log("clearing cache")
+  ls.clear();
+
+  return (
+    <ThemeProvider theme={theme}>
+      <title>Cache Clear</title>
+      <h1>Cache cleared</h1>
+    </ThemeProvider >
+  );
+
+}
+
 function VideoView(props) {
   return (
     <ThemeProvider theme={theme}>
@@ -179,6 +197,7 @@ function App() {
         <Switch>
           <Route path="/summary" component={() => <SummaryView />} />
           <Route path="/video" component={() => <VideoView progress={progress} embedId={embedId} setVideoFinished={setVideoFinished} />} />
+          <Route path="/clearcache" component={() => <ClearCacheView />} />
           <Route path="/" component={() => <ProgressView progress={progress} />} />
         </Switch>
       </div>
